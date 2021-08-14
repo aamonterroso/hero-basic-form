@@ -4,8 +4,12 @@ import SelectDD from "./selectDropdown";
 import CheckboxGroup from "./checkboxGroup";
 import Button from "./button";
 import { useForm } from 'react-hook-form';
+import { useState } from "react";
+import { postSubscribeForm } from "../utils/dataService";
+import { euResidentOptions, preferencesOptions } from "../constants/controlOptions"
 
-function SignUp() {
+const SignUp = () => {
+  // Hook Forms Config //
   const { 
     register,
     handleSubmit,
@@ -13,20 +17,43 @@ function SignUp() {
   } = useForm({
     mode: "onBlur"
   });
-  
-  //pre populated element options //
-  const selectOptions = ["YES", "NO"];
-  const checkGroupOptions = [
-    {'label':'ADVANCES', 'value':'pref1'},
-    {'label':'ALERTS', 'value':'pref2'},
-    {'label':'OTHER COMMUNICATIONS', 'value':'pref3'}
-  ];
 
-  // methods //
-  const onSubmit = (data) => {
-    console.log(data);
-  }
+  // State Props //
+  const [values, setValues] = useState({
+    response: ''
+  });
+
+  // Methods //
+  const onSubmit = async(data) => {
+    if(!isValid) return;
+    const params = encodeValues(data);
+    const config = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    };
+    try {
+      const res = await postSubscribeForm(params, config);
+      setValues({...values, 'response': JSON.parse(res)});
+    } catch(error) {
+      console.log(error);
+    }
+  };
+
+  const encodeValues = (data) => {
+    const params = new URLSearchParams();
+    for (const prop in data) {
+      params.append(prop, data[prop]);
+    }
+    return params;
+  };
   
+  // Conditional Rendering //
+  if(values.response.status === 'success' || values.response.status === 'error') {
+    return (
+      <h3> {values.response.message} </h3>
+    )
+  }
   return (
     <div className="signUp">      
       <div className="signUp__title">
@@ -75,7 +102,7 @@ function SignUp() {
             <SelectDD name="euResident"
               placeholder="SELECT ONE"
               label="EU RESIDENT"
-              options={selectOptions}
+              options={euResidentOptions}
               validator={register("euResident", {required: true})}
               errors={errors.euResident}
               required
@@ -84,7 +111,7 @@ function SignUp() {
           <div className="signUp__checkboxWrapper">
             <CheckboxGroup 
               label=""
-              options={checkGroupOptions}
+              options={preferencesOptions}
               validator={register("preferences", {required: true})}
               errors={errors.preferences}
             />
