@@ -1,0 +1,28 @@
+@import "./utils";
+.signUp {
+  @include tablet-or-desktop {
+    width: 45rem;
+    margin: 0 auto;
+  }
+  h1 { margin-bottom: 0; }
+  p { margin-top: 0; }
+
+  &__title {
+    font-size: 1.125rem;
+  }
+
+  &__formWrapper {
+    width: 100%;
+    border: 1px solid grey;
+  }
+
+  &__inputTextWrapper {
+    display: inline-block;
+    &__inputText {
+      float: left;
+      display: block;
+    }
+  }
+
+
+}
