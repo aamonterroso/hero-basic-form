@@ -1,11 +1,10 @@
 import React from "react";
+import '../_main.scss';
 import SignUpForm from "./signUpForm";
 
 const App = () => {
   return (
-    <div className="container" id="container">
-      <SignUpForm></SignUpForm>
-    </div>
+    <SignUpForm></SignUpForm>
   );
 }
 

@@ -1,17 +1,16 @@
-import "./scss/_button.scss";
-
-const Button = ({label, bgColor, isSubmit, darkLabel, disabled}) => {
+const Button = ({label, bgColor, isSubmit, darkLabel, disabled, onClick}) => {
   let style = {
-    backgroundColor: disabled ? 'gray' :bgColor,
+    backgroundColor: disabled ? '#d6d6d6' :bgColor,
     color: darkLabel ? "#000" : "#fff"
   };
 
   return (
-    <div>
-      <button className="button" 
+    <div className="button-container">
+      <button className="button box-shaddow-util input-label-util" 
         type={isSubmit ? 'submit' : 'button'} 
         style={style}
         disabled = {disabled}
+        onClick={onClick}
       >
         {label}
       </button>

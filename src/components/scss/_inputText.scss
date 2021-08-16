@@ -1,0 +1,25 @@
+.input-text {
+  float: left;
+  margin-right: 2rem;
+  margin-bottom: 1.5rem;
+  @include tablet-or-mid {
+    float: none;
+    margin-right: 0;
+  }
+  
+  &__label-wrapper {
+    position: relative;
+    margin: 1.8rem 0 0.5rem;
+    @include tablet-or-mid {
+      padding-top: 1.5rem;
+    }
+  }
+  &__field {
+    height: 3rem;
+    width: 20rem;
+    padding: 0 15px;
+    @include tablet-or-mid {
+      width: 100%;
+    }
+  }
+}

@@ -1,19 +1,18 @@
-import "./scss/_inputText.scss";
-
 const InputText = ({name, label, ariaLabel, required, validator, errors}) => {
-  
   return (
-    <div className="inputText">
-      <div className="inputText__labelWrapper">        
-        <label className="inputText__label" htmlFor={name}>
+    <div className="input-text">
+      <div className="error-wrapper-util">
+        <p className="error-label-util">{errors?.type === 'required' && `${label.toLowerCase()} is required`}</p>
+        <p className="error-label-util">{errors?.type === 'pattern' && errors.message}</p>
+      </div>
+      <div className="input-text__label-wrapper">
+        <label className="input-label-util" htmlFor={name}>
           {label}{required ? "*" : ""}
         </label>
       </div>
-      <div className="inputText_inputWrapper">
-        {errors?.type === 'required' && `${label} is required`}
-        {errors?.type === 'pattern' && errors.message}
+      <div className="input-text___input-wrapper">
         <input 
-          className="inputText_input"
+          className={`input-text__field control-style-util ${errors ? 'control-invalid-util':'control-valid-util'}`}
           name={name}
           id={name}
           aria-label={ariaLabel}

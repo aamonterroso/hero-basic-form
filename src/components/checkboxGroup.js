@@ -1,26 +1,24 @@
-import "./scss/_checkbox.scss";
 import CheckBox from "./checkbox";
 
-
-const CheckboxGroup = ({label, options, validator, errors, setter, getter}) => {
-  
+const CheckboxGroup = ({label, options, validator, errors}) => {  
   const buildElement = (el) => {
-    return <CheckBox className="checkbox"
+    return <CheckBox className="checkbox-group__checkbox"
       label={el.label}
       value={el.value}
       key={el.value}
+      isInvalid={errors? true: false}
       validator={validator}
-      setValue={setter}
-      getValue={getter}
     />
   }
   const groupOptions = options.map((el) => buildElement(el));
 
   return (
-    <div className="checkboxGroup">
+    <div className="checkbox-group">
+      <div className="error-wrapper-util">
+      <p className="error-label-util">{ errors?.type === 'required' && "At least one of the options is required"}</p>
+      </div>      
       <fieldset>
         <legend>{label}</legend>
-        { errors?.type === 'required' && "Please choose one of the followings"}
         {
           groupOptions
         }

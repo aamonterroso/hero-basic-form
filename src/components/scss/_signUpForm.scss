@@ -1,28 +1,56 @@
-@import "./utils";
-.signUp {
-  @include tablet-or-desktop {
-    width: 45rem;
-    margin: 0 auto;
+.signup {
+  width: 45rem;
+  margin: 0 auto;
+  @include tablet-or-mid {
+    width: 35rem;
   }
-  h1 { margin-bottom: 0; }
-  p { margin-top: 0; }
+  @include mobile-only {
+    width: 20rem;
+  }
+  h2 {
+    margin-bottom: 0.5rem; 
+  }
+
+  &__required-title {
+    margin: 0;
+  }
 
   &__title {
     font-size: 1.125rem;
   }
 
-  &__formWrapper {
+  // component sections //
+  &__form-wrapper {
     width: 100%;
-    border: 1px solid grey;
   }
 
-  &__inputTextWrapper {
+  &__inputtext-wrapper {
+    margin-top: 1rem;
+  }
+
+  &__selectdd-wrapper {
     display: inline-block;
-    &__inputText {
-      float: left;
-      display: block;
+    width: 100%;
+  }
+
+  &__checkbox-wrapper {
+    margin-top: 1.5rem;
+  }
+
+  &__button-wrapper {
+    margin-top: 3rem;
+    margin-bottom: 10rem;
+    @include tablet-or-mid {
+      margin-top: 1rem;
+      margin-bottom: 6rem;
     }
   }
-
-
+}
+// final form message
+.status-message { 
+  width: 80%;
+  text-align: center;
+  margin: 0 auto;
+  font-size: 2rem;
+  padding-top: 5rem;
 }

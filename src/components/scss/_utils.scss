@@ -1,5 +1,50 @@
-//** media query mixins **//
-@mixin tablet-or-desktop {
-  @media (min-width: 768px) { @content; }
+// media query mixins //
+@mixin tablet-or-mid {
+  @media (max-width: 768px) { @content; }
+}
+@mixin mobile-only {
+  @media (max-width: 425px) { @content; }
 }
 
+// shared styles //
+.input-label-util {
+  font-weight: bold;
+  letter-spacing: 1.5px;
+}
+.error-wrapper-util {
+  position: absolute;
+  .error-label-util {
+    color: #ee4367;
+    font-weight: bold;
+    font-style: italic;
+    margin: 0;
+  }
+}
+.control-style-util {
+  box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 0.3);
+  border-radius: 3px;
+  text-transform: uppercase;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  &:hover, &:focus{
+    border: 3px solid #a0d1cd;
+    outline-width: 0px;
+  }
+}
+.control-invalid-util {
+  border: 3px solid #ee90a2;
+}
+.control-valid-util {
+  border: 3px solid #d4eae8;
+}
+.screen-read-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap; /* added line */
+  border: 0;
+}

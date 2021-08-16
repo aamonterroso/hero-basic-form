@@ -10,6 +10,8 @@ const postSubscribeForm = (data, config) => {
     .then(res => {
       return res.status === 201 ?
       toJson(success) : toJson(error);
+    }).catch((err) => {
+      return toJson(error, err);
     });
 };
 

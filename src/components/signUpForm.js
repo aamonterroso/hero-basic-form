@@ -1,4 +1,3 @@
-import "./scss/_signUpForm.scss";
 import InputText from "./inputText";
 import SelectDD from "./selectDropdown";
 import CheckboxGroup from "./checkboxGroup";
@@ -13,6 +12,7 @@ const SignUp = () => {
   const { 
     register,
     handleSubmit,
+    reset,
     formState: { errors, isValid }
   } = useForm({
     mode: "onBlur"
@@ -20,8 +20,11 @@ const SignUp = () => {
 
   // State Props //
   const [values, setValues] = useState({
-    response: ''
+    response: '',
   });
+
+  // A11Y //
+  const a11yErrors = Object.keys(errors); 
 
   // Methods //
   const onSubmit = async(data) => {
@@ -40,6 +43,19 @@ const SignUp = () => {
     }
   };
 
+  const onReset = () => {
+    reset();
+  }
+
+  const listAccessibilityErrors = () => {
+    return a11yErrors.map(
+      (el) => 
+        <li key={el}>
+          error in {el} field, error type is {errors[el].type}
+        </li>
+    );
+  }
+
   const encodeValues = (data) => {
     const params = new URLSearchParams();
     for (const prop in data) {
@@ -47,38 +63,38 @@ const SignUp = () => {
     }
     return params;
   };
-  
+
   // Conditional Rendering //
   if(values.response.status === 'success' || values.response.status === 'error') {
     return (
-      <h3> {values.response.message} </h3>
+      <h3 className="status-message" role="alert">{values.response.message}</h3>
     )
   }
   return (
-    <div className="signUp">      
-      <div className="signUp__title">
-        <h1>Sign up for email updates</h1>
-        <p>*Indicates Required Field</p>
+    <div className="signup">
+      <div className="signup__title">
+        <h2>Sign up for email updates</h2>
+        <p className="signup__required-title">*Indicates Required Field</p>
       </div>
-      <div className="signUp__formWrapper">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="signUp__inputTextWrapper">
+      <div className="signup__form-wrapper">
+        <form onSubmit={handleSubmit(onSubmit)} id="signup-form">
+          <div className="signup__inputtext-wrapper">
             <InputText name="firstName" 
-              label="First Name" 
+              label="FIRST NAME" 
               ariaLabel="first name" 
               validator={register("firstName", {required: true})}
               errors={errors.firstName}
               required
             />
             <InputText name="lastName"
-              label="Last Name"
+              label="LAST NAME"
               ariaLabel="last name"
               validator={register("lastName", {required: true})}
               errors={errors.lastName}
               required
             />
             <InputText name="emailAddress"
-              label="Email Address"
+              label="EMAIL ADDRESS"
               ariaLabel="email address"
               validator={register("emailAddress",
               {
@@ -92,15 +108,15 @@ const SignUp = () => {
               required
             />
             <InputText name="organization" 
-              label="Organization"
+              label="ORGANIZATION"
               ariaLabel="organization"
               validator={register("organization", {required: false})}
               errors={errors.organization}
             />
           </div>
-          <div className="signUp__selectWrapper">
+          <div className="signup__selectdd-wrapper">
             <SelectDD name="euResident"
-              placeholder="SELECT ONE"
+              placeholder="- SELECT ONE -"
               label="EU RESIDENT"
               options={euResidentOptions}
               validator={register("euResident", {required: true})}
@@ -108,19 +124,27 @@ const SignUp = () => {
               required
             />
           </div>
-          <div className="signUp__checkboxWrapper">
+          <div className="signup__checkbox-wrapper">
             <CheckboxGroup 
-              label=""
+              label="subscription preferences"
               options={preferencesOptions}
               validator={register("preferences", {required: true})}
               errors={errors.preferences}
             />
           </div>
-          <div className="signUp_buttonWrapper">
+          <div className="signup__button-wrapper">
             <Button label="SUBMIT" bgColor="#803093" disabled={!isValid} isSubmit/>
-            <Button label="RESET" bgColor="#fff" darkLabel/>
+            <Button label="RESET" bgColor="#fff" onClick={onReset} darkLabel/>
           </div>
         </form>
+      </div>
+      <div role="alert" className="screen-read-only">
+        <h4>There are {Object.keys(errors).length} errors in this form</h4>
+        <ul>
+          {
+            listAccessibilityErrors()
+          }
+        </ul>
       </div>
     </div>
   );

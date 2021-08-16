@@ -1,0 +1,16 @@
+.button-container {
+  float: left;
+  margin-right: 1.5rem;
+  .button {
+    width: 12rem;
+    border-radius: 25px;
+    height: 3rem;
+    border: none;
+    font: inherit;
+    cursor: pointer;
+    font-weight: bold;
+    @include mobile-only {
+      width: 8rem;
+    }
+  }
+}
