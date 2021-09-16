@@ -1,4 +1,4 @@
-# Basic form implementation - Hero Digital Assessment
+# Basic form implementation - React Hook Forms
 
 ## Available Scripts
 
@@ -26,8 +26,3 @@ It correctly bundles React in production mode and optimizes the build for the be
 - **Form validation:** implemented `react-hook-form` library to handle field validation and state control, it reduces the unnecesary re-renders and provides additional features to improve performance and code re-usability.
 
 - **Scripts:** used `concurrently` package to be able to run the main app and the mock server on the same npm start execution.
-
-## Pending Items
-
-- Match the select dropdown with the provided style from the comps.
-- Improve accessibility features to allow screen readers to announce all dynamic changes properly with clear messages.
